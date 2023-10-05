@@ -51,7 +51,7 @@ resource "null_resource" "post_repo_creation" {
       git add *
       git commit -m "Initial commit from Terraform and cruft"
       git branch -M main
-      git remote add origin ${github_repository.dbt_repo.ssh_clone_url}
+      git remote add origin ${github_repository.dbt_repo.http_clone_url}
       git push -u origin main
       cd ../..
       rm -rf cruft-template
