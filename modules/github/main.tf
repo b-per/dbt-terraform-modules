@@ -44,6 +44,8 @@ resource "null_resource" "post_repo_creation" {
       cd cruft-template
       cruft create ${var.cruft_template_url} --extra-context '{"project_name": "${var.project_name}", "project_slug": "${var.project_slug}"}' --no-input
       cd ${var.project_slug}
+      git config user.email "nomail@mail.com"
+      git config user.name "No name"
       git init
       git add *
       git commit -m "Initial commit from Terraform and cruft"
