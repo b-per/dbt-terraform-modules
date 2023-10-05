@@ -51,8 +51,8 @@ resource "null_resource" "post_repo_creation" {
       cd ${var.project_slug}
       git config --global init.defaultBranch main
       git init
-      git config user.email "nomail@mail.com"
-      git config user.name "No name"
+      git config user.email "nomail@dbt.com"
+      git config user.name "Created by Terraform"
       git add *
       git commit -m "Initial commit from Terraform and cruft"
       git branch -M main
