@@ -14,24 +14,29 @@ terraform {
 }
 
 resource "github_repository" "dbt_repo" {
-    name        = "dbt_${var.project_slug}"
-    description = "Code for the dbt project ${var.project_name}"
+  name        = "dbt_${var.project_slug}"
+  description = "Code for the dbt project ${var.project_name}"
 
-    visibility = "public"
-    auto_init  = false
+  visibility = "public"
+  auto_init  = false
 }
 
 
 resource "github_branch_protection" "dbt_repo" {
-  repository_id = github_repository.dbt_repo.node_id
-  pattern          = "main"
-  enforce_admins   = false
+  repository_id  = github_repository.dbt_repo.node_id
+  pattern        = "main"
+  enforce_admins = false
 
   required_pull_request_reviews {
-    restrict_dismissals    = false
+    restrict_dismissals             = false
     required_approving_review_count = 1
 
   }
+}
+
+locals {
+  https_url          = github_repository.dbt_repo.http_clone_url
+  https_url_with_pat = replace(local.https_url, "https://", "https://${var.github_token}@")
 }
 
 # this will happen only when the repo is created
@@ -51,7 +56,7 @@ resource "null_resource" "post_repo_creation" {
       git add *
       git commit -m "Initial commit from Terraform and cruft"
       git branch -M main
-      git remote add origin ${github_repository.dbt_repo.http_clone_url}
+      git remote add origin ${local.https_url_with_pat}
       git push -u origin main
       cd ../..
       rm -rf cruft-template
