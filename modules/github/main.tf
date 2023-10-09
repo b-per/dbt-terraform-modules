@@ -44,7 +44,8 @@ resource "null_resource" "post_repo_creation" {
   provisioner "local-exec" {
     command = <<-EOT
       #!/bin/bash
-      # Do something locally once the repo is created
+      set -e
+      # Clone the template and push it to the new repo
       mkdir cruft-template
       cd cruft-template
       cruft create ${var.cruft_template_url} --extra-context '{"project_name": "${var.project_name}", "project_slug": "${var.project_slug}"}' --no-input
