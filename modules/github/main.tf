@@ -54,7 +54,8 @@ resource "null_resource" "post_repo_creation" {
       git init
       git config user.email "nomail@dbt.com"
       git config user.name "Created by Terraform"
-      git add *
+      git add */.*
+      git rm -f .cruft.json
       git commit -m "Initial commit from Terraform and cruft"
       git branch -M main
       git remote add origin ${local.https_url_with_pat}
