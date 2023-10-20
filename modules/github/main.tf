@@ -46,6 +46,7 @@ resource "null_resource" "post_repo_creation" {
       #!/bin/bash
       set -e
       # Clone the template and push it to the new repo
+      rm -rf cruft-template
       mkdir cruft-template
       cd cruft-template
       cruft create ${var.cruft_template_url} --extra-context '{"project_name": "${var.project_name}", "project_slug": "${var.project_slug}"}' --no-input
@@ -54,7 +55,8 @@ resource "null_resource" "post_repo_creation" {
       git init
       git config user.email "nomail@dbt.com"
       git config user.name "Created by Terraform"
-      git add * .*
+      git add *
+      git add .
       git commit -m "Initial commit from Terraform and cruft"
       git branch -M main
       git remote add origin ${local.https_url_with_pat}
