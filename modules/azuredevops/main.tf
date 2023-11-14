@@ -22,7 +22,7 @@ resource "azuredevops_git_repository" "dbt_repo" {
   project_id = var.devops_project_id
   name       = "dbt_${var.project_slug}"
   initialization {
-    init_type = "Clean"
+    init_type = "Uninitialized"
   }
 }
 
