@@ -1,5 +1,15 @@
-variable "github_token" {
-  description = "GitHub token to create repos"
+variable "devops_token" {
+  description = "Azure DevOps PAT"
+  type        = string
+}
+
+variable "devops_url" {
+  description = "Azure DevOps Organization URL"
+  type        = string
+}
+
+variable "devops_project_id" {
+  description = "Azure DevOps Project ID"
   type        = string
 }
 
