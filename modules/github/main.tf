@@ -36,7 +36,7 @@ resource "github_branch_protection" "dbt_repo" {
 
 locals {
   https_url          = github_repository.dbt_repo.http_clone_url
-  https_url_with_pat = sensitive(replace(local.https_url, "https://", "https://${var.github_token}@"))
+  https_url_with_pat = replace(local.https_url, "https://", "https://${var.github_token}@")
 }
 
 # this will happen only when the repo is created
