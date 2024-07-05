@@ -1,6 +1,7 @@
 variable "github_token" {
   description = "GitHub token to crate repos"
   type        = string
+  sensitive   = true
 }
 
 variable "project_slug" {
