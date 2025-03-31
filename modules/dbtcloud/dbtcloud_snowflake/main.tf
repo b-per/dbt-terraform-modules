@@ -5,21 +5,22 @@ terraform {
   required_providers {
     dbtcloud = {
       source  = "dbt-labs/dbtcloud"
-      version = ">= 0.2.10"
+      version = ">= 0.3.0"
     }
   }
 }
 
-// create a connection and link the project to the connection
+
+// create a global connection that we will link to environments
 // this is an example with Snowflake but for other warehouses please look at the resource docs
-resource "dbtcloud_connection" "dbt_connection" {
-  project_id = var.dbt_project_id
-  type       = "snowflake"
-  name       = "WH ${var.dbt_project_name}"
-  account    = var.snowflake_account
-  database   = var.snowflake_databases["DEV"].name
-  role       = var.snowflake_roles["DEV"].name
-  warehouse  = var.snowflake_warehouses["DEV"].name
+resource "dbtcloud_global_connection" "dbt_connection" {
+  name = "Snowflake DW - ${var.dbt_project_name}"
+  snowflake = {
+    account                   = var.snowflake_account
+    database                  = var.snowflake_databases["DEV"].name
+    warehouse                 = var.snowflake_warehouses["DEV"].name
+    role                      = var.snowflake_roles["DEV"].name
+  }
 }
 
 // we use user/password but there are other options on the resource docs

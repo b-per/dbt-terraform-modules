@@ -1,5 +1,5 @@
 output "dbt_connection" {
-  value = dbtcloud_connection.dbt_connection
+  value = dbtcloud_global_connection.dbt_connection
 }
 
 output "dbt_creds" {

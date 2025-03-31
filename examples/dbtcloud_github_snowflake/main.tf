@@ -14,7 +14,7 @@ terraform {
     }
     dbtcloud = {
       source  = "dbt-labs/dbtcloud"
-      version = ">= 0.2.10"
+      version = ">= 0.3.0"
     }
   }
 }

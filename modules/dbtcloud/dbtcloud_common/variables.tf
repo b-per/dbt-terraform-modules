@@ -27,6 +27,7 @@ variable "dbt_version" {
 }
 
 variable "database_envs" {
+  description = "The different environments required (i.e. DEV, PROD etc...) and their properties"
   type = map(object({
     wh_size           = string
     defer_to_env_name = string
@@ -35,13 +36,22 @@ variable "database_envs" {
 }
 
 variable "dbt_creds" {
-  type = map(any)
+  description = "A map of environment name to dbt cloud credential ID"
+  type = map(object({
+    credential_id = integer
+  }))
 }
 
 variable "dbt_creds_ci" {
-  type = map(any)
+  description = "A map of environment name to dbt cloud credential ID for CI"
+  type = map(object({
+    credential_id = integer
+  }))
 }
 
 variable "defer_from_to" {
-  type = map(any)
+  description = "Map of all the environments that can defer to another one in CI. Key and Value are the environment names"
+  type = map(object({
+    defer_to_env_name = string
+  }))
 }

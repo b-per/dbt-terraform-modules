@@ -43,9 +43,13 @@ variable "snowflake_service_users" {
 }
 
 variable "envs_except_dev" {
+  description = "The deployment environments. A subset of `database_envs`."
   type = map(any)
 }
 
 variable "defer_from_to" {
-  type = map(any)
+  description = "Map of all the environments that can defer to another one in CI. Key and Value are the environment names"
+  type = map(object({
+    defer_to_env_name = string
+  }))
 }

@@ -48,12 +48,12 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_database_envs"></a> [database\_envs](#input\_database\_envs) | n/a | <pre>map(object({<br>    wh_size           = string<br>    defer_to_env_name = string<br>    git_branch        = string<br>  }))</pre> | n/a | yes |
-| <a name="input_defer_from_to"></a> [defer\_from\_to](#input\_defer\_from\_to) | n/a | `map(any)` | n/a | yes |
-| <a name="input_developers"></a> [developers](#input\_developers) | n/a | `set(string)` | n/a | yes |
-| <a name="input_envs_except_dev"></a> [envs\_except\_dev](#input\_envs\_except\_dev) | n/a | `map(any)` | n/a | yes |
+| <a name="input_database_envs"></a> [database\_envs](#input\_database\_envs) | The different environments required (i.e. DEV, PROD etc...) and their properties | <pre>map(object({<br>    wh_size           = string<br>    defer_to_env_name = string<br>    git_branch        = string<br>  }))</pre> | n/a | yes |
+| <a name="input_defer_from_to"></a> [defer\_from\_to](#input\_defer\_from\_to) | Map of all the environments that can defer to another one in CI. Key and Value are the environment names | <pre>map(object({<br>    defer_to_env_name = string<br>  }))</pre> | n/a | yes |
+| <a name="input_developers"></a> [developers](#input\_developers) | List of user IDs to assign the new developer role to | `set(string)` | n/a | yes |
+| <a name="input_envs_except_dev"></a> [envs\_except\_dev](#input\_envs\_except\_dev) | The deployment environments. A subset of `database_envs`. | `map(any)` | n/a | yes |
 | <a name="input_project_slug"></a> [project\_slug](#input\_project\_slug) | Slug for the project with no special characters | `string` | n/a | yes |
-| <a name="input_raw_database"></a> [raw\_database](#input\_raw\_database) | n/a | `string` | n/a | yes |
+| <a name="input_raw_database"></a> [raw\_database](#input\_raw\_database) | The name of the database where the raw data is stored | `string` | n/a | yes |
 
 ## Outputs
 

@@ -4,7 +4,7 @@ terraform {
   required_providers {
     dbtcloud = {
       source  = "dbt-labs/dbtcloud"
-      version = ">= 0.2.10"
+      version = ">= 0.3.0"
     }
   }
 }
@@ -12,11 +12,6 @@ terraform {
 // create a project
 resource "dbtcloud_project" "dbt_project" {
   name = var.dbt_project_name
-}
-
-resource "dbtcloud_project_connection" "dbt_project_connection" {
-  project_id    = dbtcloud_project.dbt_project.id
-  connection_id = var.dbt_connection.connection_id
 }
 
 resource "dbtcloud_repository" "dbt_repository" {
@@ -40,6 +35,7 @@ resource "dbtcloud_environment" "envs" {
   type          = each.key == "DEV" ? "development"  : "deployment"
   deployment_type = each.key == "PROD" ? "production"  : null
   credential_id = each.key == "DEV" ? null : var.dbt_creds[each.key].credential_id
+  connection_id = var.dbt_connection.connection_id
   custom_branch = each.value["git_branch"]
   use_custom_branch = each.value["git_branch"] == null ? false : true
 }
@@ -51,6 +47,7 @@ resource "dbtcloud_environment" "envs_ci" {
   project_id    = dbtcloud_project.dbt_project.id
   type          = "deployment"
   credential_id = var.dbt_creds_ci[each.key].credential_id
+  connection_id = var.dbt_connection.connection_id
   custom_branch = var.database_envs[each.value["defer_to_env_name"]].git_branch
   use_custom_branch = var.database_envs[each.value["defer_to_env_name"]].git_branch == null ? false : true
 }
